@@ -1,0 +1,62 @@
+WEBVTT FILE
+
+1
+00:18.000 --> 00:24.000
+{
+    "title": "Mosasaurio, Época del cretacico",
+    "description": "El Cretácico, o Cretáceo, es una división de la escala temporal geológica que pertenece a la Era Mesozoica; dentro de esta, el Cretácico ocupa el tercer y último lugar siguiendo al Jurásico. Comenzó hace 145 millones de años y terminó hace 66 millones de años.",
+    "tipoC" : "2",
+    "tiempo1" : 18,
+    "tiempo2" : 24
+}
+
+2
+01:00.000 --> 01:05.000
+{
+    "title": "Pregunta 1",
+    "description": "Pregunta sobre si hubiese sobrevidido",
+    "tipoC" : "1",
+    "pregunta": "¿El océano sería igual si este dinosaurio hubiese sobrevivido?",
+    "respuestas": ["No, ya que no tendría rival natural", "Sí, ya que los humanos seguramente lo hubiésemos llevado a la extinción" ,
+     "Sí, porque aparecería un rival natural logrando un equilibrio" , "Sí, pero se habría adaptado de alguna forma"],
+    "respuestaC": "Sí, ya que los humanos seguramente lo hubiésemos llevado a la extinción",
+    "tiempo1" : 60,
+    "tiempo2" : 75
+}
+
+3
+01:31.000 --> 01:38.000
+{
+    "title" : "Dragón de Komodo",
+    "description" : "El dragón de Komodo, también llamado monstruo de Komodo y varano de Komodo, es una especie de saurópsido de la familia de los varánidos, endémico de algunas islas de Indonesia central.​ Es el lagarto de mayor tamaño del mundo, con una longitud media de dos a tres metros y un peso de unos 70 kg",
+    "tipoC" : "2",
+    "tiempo1" : 91,
+    "tiempo2" : 98
+}
+
+4
+03:08.000 --> 03:19.000
+{
+    "title": "Jurassic World",
+    "description": "En la película de Jurassic World, se puede ver un ejemplo de como era el mosasaurio, pero de una forma exagerada, ya que éste no era tan grande pero sí muy feroz y peligroso",
+    "tipoC" : "2",
+    "tiempo1" : 188,
+    "tiempo2" : 199
+}
+
+5
+03:46.000 --> 03:57.000
+{
+    "title": "Pregunta 2",
+    "description": "Pregunta sobre la evolución",
+    "tipoC" : "1",
+    "pregunta": "¿Por qué evolucionan las especies?",
+    "respuestas": ["Para adaptarse a nuevos cambios pero el proceso conlleva cientos de miles de años", "Lo hacen porque quieren" ,
+     "Para hacer frente a un depredador" , "Las especies no evolucionan"],
+    "respuestaC": "Para adaptarse a nuevos cambios pero el proceso conlleva cientos de miles de años",
+    "tiempo1" : 226,
+    "tiempo2" : 237
+}
+
+
+

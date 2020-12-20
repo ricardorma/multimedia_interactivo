@@ -1,0 +1,216 @@
+<h1>¡Carga tu video local!</h1>
+
+    <ngx-dropzone class="custom-dropzone" (change)="onSelect($event)">
+        <ngx-dropzone-label>Buscar...</ngx-dropzone-label>
+            <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-video-preview>
+    </ngx-dropzone>
+
+<hr>
+<hr>
+
+
+<div class="player-wrapper" *ngIf="files?.length > 0">
+    <vg-player (onPlayerReady)="onPlayerReady($event)">
+      <ng-container *ngIf="activeCuePoints">
+        <div *ngFor="let cuePointData of activeCuePoints" class="info-layer">
+          <div *ngIf="cuePointData.tipo == 1">
+            <h3>{{ cuePointData?.title }}</h3>
+            <p>
+                {{ cuePointData?.description }}
+            </p>
+          </div>
+          <div *ngIf="cuePointData.tipo == 2">
+              <form #formRef="ngForm"
+              (submit)="submitRespuestas(formRef)">
+                <h3>{{ cuePointData?.title }}</h3>
+                <p>
+                  {{ cuePointData?.pregunta }}
+                </p>
+                <div>
+                  <input type="radio" id="p1" value="{{ cuePointData.respuestas[0] }}" name="p1" ngModel>
+                  <label for="p1"> {{ cuePointData.respuestas[0] }}</label>
+                </div>
+                <div>
+                  <input type="radio" id="p2" value="{{ cuePointData.respuestas[1] }}" name="p1" ngModel>
+                  <label for="p2"> {{ cuePointData.respuestas[1] }}</label>
+                </div>
+                <div>
+                  <input type="radio" id="p3" value="{{ cuePointData.respuestas[2] }}" name="p1" ngModel>
+                  <label for="p3"> {{ cuePointData.respuestas[2] }}</label>
+                </div>
+                <div>
+                  <input type="radio" id="p4" value="{{ cuePointData.respuestas[3] }}" name="p1" ngModel>
+                  <label for="p4"> {{ cuePointData.respuestas[3] }}</label>
+                </div>
+                <button class="btn btn-outline-primary btn-block" type="submit">Ver respuesta</button>
+              </form>
+            {{ resultado }}
+          </div>
+          </div>
+      </ng-container>
+
+  <vg-overlay-play></vg-overlay-play>
+  <vg-buffering></vg-buffering>
+        
+
+  <vg-controls>
+    <vg-play-pause></vg-play-pause>
+    <vg-playback-button></vg-playback-button>
+
+    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+    <vg-scrub-bar>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-cue-points [vgCuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
+    </vg-scrub-bar>
+
+    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+    <vg-mute></vg-mute>
+    <vg-volume></vg-volume>
+
+    <vg-fullscreen></vg-fullscreen>
+  </vg-controls>
+
+    <video #media [vgMedia]="media" [src]="videoSRC" id="singleVideo" preload="auto" crossorigin>
+      <track src="../../assets/videoLocal.vtt" kind="metadata" label="Cue Points" default
+             #metadataTrack
+             vgCuePoints
+             (onEnterCuePoint)="onEnterCuePoint($event)"
+             (onExitCuePoint)="onExitCuePoint($event)">
+    </video>
+    </vg-player>
+
+    <div *ngIf="files?.length > 0">
+      <button type="button" class="btn btn-outline-primary" (click)="saltarCP = !saltarCP">¿Quieres saltar a algún punto?</button>
+      <div class="container ml-3 mr-5" *ngIf="saltarCP">
+        <div class="container mt-4 mb-4" *ngFor="let cue of track?.cues">
+          <button class="btn btn-outline-success btn-block" (click)="saltarCue(cue)">Saltar al punto del segundo {{ cue.startTime }}</button>
+        </div>
+      </div>
+    </div>
+    
+</div>
+<br>
+
+<div class="container" *ngIf="files?.length > 0">
+<div class="container mt-4 mb-4">
+  <p>
+      <button class="btn btn-outline-primary btn-block" (click)="saltar()">Saltarse 5 segundos</button>
+  </p>
+</div>
+
+
+<div class="contenedorBotones">
+  <button type="button" class="btn btn-outline-primary right" (click)="borrarPuntos = !borrarPuntos">Borrar puntos de información</button>
+  <div class="espacioBotones"></div>
+  <button type="button" class="btn btn-outline-primary" (click)="showCuePointManager = !showCuePointManager">¿Quieres añadir puntos de información a tu video?</button>
+  <div class="espacioBotones"></div>
+  <button type="button" class="btn btn-outline-primary" (click)="anadirP = !anadirP">¿Quieres añadir preguntas a tu video?</button>
+</div>
+  
+  <hr>
+  <div class="container mb-5" *ngIf="borrarPuntos">
+        <table class="cue-table">
+          <thead>
+            <tr class="cue-row">
+              <th>Comienzo</th>
+              <th>Final</th>
+              <th>Título</th>
+              <th>Borrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cue of track?.cues" class="cue-row">
+              <td>{{ cue.startTime }}</td>
+                <td>{{ cue.endTime }}</td>
+                <td class="json">{{ json.parse(cue.text).title }}</td>
+                <td class="actions">
+                <button type="button" class="btn btn-outline-danger btn-block" (click)="onClickRemove(cue)">Borrar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+  <div class="container mb-5" *ngIf="showCuePointManager">
+    <div class="add-cue">
+      <h4>Añade un punto de información</h4>
+      <form name="cueForm"
+              #formRef="ngForm"
+              (submit)="onSubmit(formRef, $event)">
+        <div class="form-field">
+          <label for="startTime">Comienzo</label>
+          <input type="number" id="startTime" name="startTime" [(ngModel)]="newCue.startTime" required>
+        </div>
+        <div class="form-field">
+          <label for="endTime">Final</label>
+          <input type="number" id="endTime" name="endTime" [(ngModel)]="newCue.endTime" required>
+        </div>
+        <div class="form-field">
+          <label for="title">Título</label>
+          <input type="text" id="title" name="title" [(ngModel)]="newCue.title" required>
+        </div>
+        <div class="form-field">
+          <label for="description">Descripción</label>
+          <input type="text" id="description" name="description" [(ngModel)]="newCue.description" required>
+        </div>
+        <button class="btn btn-outline-success btn-block" type="submit" [disabled]="!formRef.valid">Añadir</button>
+        <button class="btn btn-outline-danger btn-block" (click)="showCuePointManager = false">Salir</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container mb-5" *ngIf="anadirP">
+    <div class="add-cue">
+      <h4>Añade tus propias preguntas/respuestas</h4>
+      <form name="pregForm"
+              #formRef="ngForm"
+              (submit)="onSubmitP(formRef, $event)">
+        <div class="form-field">
+          <label for="startTime">Comienzo</label>
+          <input type="number" id="startTime" name="startTime" [(ngModel)]="newPreg.startTime" required>
+        </div>
+        <div class="form-field">
+          <label for="endTime">Final</label>
+          <input type="number" id="endTime" name="endTime" [(ngModel)]="newPreg.endTime" required>
+        </div>
+        <div class="form-field">
+          <label for="title">Título</label>
+          <input type="text" id="title" name="title" [(ngModel)]="newPreg.title" required>
+        </div>
+        <div class="form-field">
+          <label for="pregunta">Pregunta</label>
+          <input type="text" id="pregunta" name="pregunta" [(ngModel)]="newPreg.pregunta" required>
+        </div>
+        <div class="form-field">
+          <label for="respuesta1">Respuesta 1</label>
+          <input type="text" id="respuesta1" name="respuesta1" [(ngModel)]="newPreg.respuesta1" required>
+        </div>
+        <div class="form-field">
+          <label for="respuesta2">Respuesta 2</label>
+          <input type="text" id="respuesta2" name="respuesta2" [(ngModel)]="newPreg.respuesta2" required>
+        </div>
+        <div class="form-field">
+          <label for="respuesta3">Respuesta 3</label>
+          <input type="text" id="respuesta3" name="respuesta3" [(ngModel)]="newPreg.respuesta3" required>
+        </div>
+        <div class="form-field">
+          <label for="respuesta4">Respuesta 4</label>
+          <input type="text" id="respuesta4" name="respuesta4" [(ngModel)]="newPreg.respuesta4" required>
+        </div>
+        <div class="form-field">
+          <label for="respuestaC">RespuestaC</label>
+          <input type="text" id="respuestaC" name="respuestaC" [(ngModel)]="newPreg.respuestaC" required>
+        </div>
+        <button class="btn btn-outline-success btn-block" type="submit" [disabled]="!formRef.valid">Añadir</button>
+        <button class="btn btn-outline-danger btn-block" (click)="anadirP = false">Salir</button>
+      </form>
+    </div>
+  </div>
+
+
+

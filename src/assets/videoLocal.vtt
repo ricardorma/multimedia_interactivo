@@ -1,0 +1,13 @@
+WEBVTT FILE
+
+1
+00:00:01.200 --> 00:00:02.800
+{
+    "title": "Bienvenido",
+    "description": "Puedes añadir puntos de información",
+    "pregunta": "",
+    "respuestas": ["","","",""],
+    "respuestaC": "",
+    "tiempo1": 1.200,
+    "tipo" : "1"
+}

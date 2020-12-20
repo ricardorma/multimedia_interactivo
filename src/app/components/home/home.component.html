@@ -1,0 +1,130 @@
+<div class="mt-5 ml-3">
+    <h1>Video interactivo</h1>
+    <hr>
+</div>
+
+        <hr>
+        
+        <div class="reproductor">
+            <vg-player (onPlayerReady)="onPlayerReady($event)">
+            <ng-container *ngIf="activeCuePoints">
+              <div *ngFor="let cuePointData of activeCuePoints; let $index = index" class="info-layer">
+                  <div *ngIf="cuePointData.tipoC == 1">
+                    <div *ngIf="!respuestaCorrecta">
+                        <form #formRef="ngForm"
+                        (submit)="onSubmit(formRef)">
+                          <h3>{{ cuePointData?.title }}</h3>
+                          <p>
+                            {{ cuePointData?.pregunta }}
+                          </p>
+                          <div>
+                            <input type="radio" id="p1" value="{{ cuePointData?.respuestas[0] }}" name="p1" ngModel>
+                            <label for="p1"> {{ cuePointData?.respuestas[0] }}</label>
+                          </div>
+                          <div>
+                            <input type="radio" id="p2" value="{{ cuePointData?.respuestas[1] }}" name="p1" ngModel>
+                            <label for="p2"> {{ cuePointData?.respuestas[1] }}</label>
+                          </div>
+                          <div>
+                            <input type="radio" id="p3" value="{{ cuePointData?.respuestas[2] }}" name="p1" ngModel>
+                            <label for="p3"> {{ cuePointData?.respuestas[2] }}</label>
+                          </div>
+                          <div>
+                            <input type="radio" id="p4" value="{{ cuePointData?.respuestas[3] }}" name="p1" ngModel>
+                            <label for="p4"> {{ cuePointData?.respuestas[3] }}</label>
+                          </div>
+                          <button class="btn btn-outline-primary btn-block" type="submit">Ver respuesta</button>
+                        </form>
+                        
+                      {{ resultado }}
+                    </div>
+                    
+                    
+                  </div>
+
+                  <div *ngIf="cuePointData.tipoC == 2">
+                    <details>
+                      <summary>{{ cuePointData?.title }}</summary>
+                        <p>
+                          {{ cuePointData?.description }}
+                        </p>
+                  </details>
+                    
+                  </div>
+                  
+              </div>
+          </ng-container>
+
+
+              <vg-overlay-play></vg-overlay-play>
+              <vg-buffering></vg-buffering>
+        
+              <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+        
+              <vg-controls>
+                <vg-play-pause></vg-play-pause>
+                <vg-playback-button></vg-playback-button>
+        
+                <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+        
+                <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+        
+                <vg-scrub-bar>
+                  <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                  <vg-scrub-bar-cue-points [vgCuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
+              </vg-scrub-bar>
+
+                <vg-mute></vg-mute>
+                <vg-volume></vg-volume>
+        
+                <vg-fullscreen></vg-fullscreen>
+              </vg-controls>
+        
+
+                <video #media [vgMedia]="media" [src]="currentItem.src" id="singleVideo" preload="auto" crossorigin>
+                  <track [src]="currentItem.track" kind="metadata" label="Cue Points" default
+                 #metadataTrack
+                 vgCuePoints
+                 (onEnterCuePoint)="onEnterCuePoint($event)"
+                 (onExitCuePoint)="onExitCuePoint($event)">
+                </video>
+
+
+            </vg-player>
+            <div>
+              <p>
+                  <button class="btn btn-outline-primary" (click)="saltar()">Saltarse 3 segundos</button>
+              </p>
+              <div *ngIf="contadorMal > 0 && !respuestaCorrecta" >
+                <p>
+                  Has fallado {{ contadorMal }} veces.
+                </p>
+              </div>
+              <div *ngIf="respuestaCorrecta" >
+                <p>
+                  ¡Has acertado!
+                </p>
+              </div>
+          </div>
+
+
+          <button type="button" class="btn btn-outline-primary" (click)="saltarCP = !saltarCP">¿Quieres saltar a algún punto?</button>
+          <div class="container ml-3 mr-5" *ngIf="saltarCP">
+            <div class="container mt-4 mb-4" *ngFor="let cue of track?.cues">
+              <button class="btn btn-outline-success btn-block" (click)="saltarCue(cue)">Saltar al punto del segundo {{ cue.startTime }}</button>
+              
+          </div>
+          </div>
+            
+            <ul>
+              <li class="playlist-item" *ngFor="let item of playlist; let $index = index"
+                (click)="onClickPlaylistItem(item, $index)" [class.selected]="item === currentItem">
+                {{ item.title }}
+              </li>
+            </ul>
+        
+          </div>

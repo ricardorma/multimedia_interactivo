@@ -1,0 +1,62 @@
+WEBVTT FILE
+
+1
+00:05.000 --> 00:15.000
+{
+    "title": "¿Crees que es posible viajar en el tiempo? ¿Que pasaría si se hiciese?",
+    "description": "En este vídeo se resolverán todas tus dudas",
+    "tipoC" : "2",
+    "tiempo1" : 5,
+    "tiempo2" : 15
+}
+
+2
+00:30.000 --> 00:33.000
+{
+    "title": "Viajes en el tiempo",
+    "description": "Pregunta sobre viaje en el tiempo",
+    "tipoC" : "1",
+    "pregunta": "¿Se puede viajar en el tiempo?",
+    "respuestas": ["Sí, pero te desintegrarías", "Claro, solo necesitamos construir el coche de regreso al futuro." ,
+     "Es posible que la respuesta esté en los viajes espaciales y los viajes a años luz" , "Jamás se podrá"],
+    "respuestaC": "Es posible que la respuesta esté en los viajes espaciales y los viajes a años luz",
+    "tiempo1" : 30,
+    "tiempo2" : 33
+}
+
+3
+01:13.000 --> 01:23.000
+{
+    "title" : "Espacio tiempo",
+    "description" : "El espacio-tiempo es el modelo matemático que combina el espacio y el tiempo en un único continuo como dos conceptos inseparablemente relacionados. En este continuo espacio-temporal se representan todos los sucesos físicos del Universo, de acuerdo con la teoría de la relatividad y otras teorías físicas.",
+    "tipoC" : "2",
+    "tiempo1" : 73,
+    "tiempo2" : 83
+}
+
+4
+02:38.000 --> 02:45.000
+{
+    "title": "Dilatación del tiempo",
+    "description": "De acuerdo con la teoría de la relatividad, la dilatación del tiempo es una diferencia en el tiempo transcurrido medido por dos observadores, ya sea debido a una diferencia de velocidad relativa entre sí, o por estar situado de manera diferente en relación con un campo gravitacional.",
+    "tipoC" : "2",
+    "tiempo1" : 158,
+    "tiempo2" : 165
+}
+
+5
+05:18.000 --> 05:22.000
+{
+    "title": "Persona del pasado",
+    "description": "Pregunta sobre viajar al pasado",
+    "tipoC" : "1",
+    "pregunta": "¿Tus acciones afectarían al futuro si viajases al pasado?",
+    "respuestas": ["Totalmente de acuerdo", "No lo puedes saber, porque nadie ha viajado al pasado" ,
+     "No, porque son distintas líneas temporales" , "Depende de las acciones que sean"],
+    "respuestaC": "No lo puedes saber, porque nadie ha viajado al pasado",
+    "tiempo1" : 318,
+    "tiempo2" : 322
+}
+
+
+
